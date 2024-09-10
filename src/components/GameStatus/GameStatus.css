@@ -1,0 +1,35 @@
+.GameStatus {
+    background-color: white;
+
+    width: 100vw;
+    min-height: 10vh;
+
+    position: absolute;
+    bottom: 0;
+
+    color: rgb(30, 30, 30);
+    font-family: sans-serif;
+
+    z-index: 2;
+}
+
+.Label {
+    margin: 0 5px 0 5px;
+
+    font-size: 3rem;
+    letter-spacing: -0.2rem;
+}
+
+.Value {
+    background-color: rgba(0, 0 , 0, 0.3);
+
+    border-radius: 10px;
+
+    margin: 0 5px 0 5px;
+
+    min-width: 10rem;
+    min-height: 5rem;
+
+    font-size: 3rem;
+    font-family: monospace;
+}

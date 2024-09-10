@@ -1,0 +1,22 @@
+.Slot {
+    background-color: rgba(255, 255, 255, 0.3);
+
+    border-radius: 5px;
+
+    min-height: 100px;
+    min-width: 100px;
+
+    margin: 0px 5px 5px 0px;
+
+    font-family: monospace;
+    font-size: 30px;
+    user-select: none;
+}
+
+.Slot:hover {
+    scale: 1.05;
+}
+
+.Slot:active {
+    scale: 0.95;
+}

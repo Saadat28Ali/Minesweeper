@@ -1,0 +1,30 @@
+.Grid {
+    flex-direction: column;
+        justify-content: space-between;
+}
+
+.Row {
+}
+
+.Item {
+    background-color: rgba(255, 255, 255, 0.3);
+
+    border-radius: 5px;
+
+    min-height: 100px;
+    min-width: 100px;
+
+    margin: 0px 5px 5px 0px;
+
+    font-family: monospace;
+    font-size: 30px;
+    user-select: none;
+}
+
+.Item:hover {
+    scale: 1.05;
+}
+
+.Item:active {
+    scale: 0.95;
+}

@@ -1,0 +1,60 @@
+.Modal {
+    background-color: white;
+
+    border-radius: 10px;
+
+    box-shadow: 0px 0px 20px 2px rgba(0, 175, 250, 0.5);
+
+    flex-direction: column;
+
+    position: absolute;
+
+    padding: 10px 30px 10px 30px;
+
+    color: rgb(30, 30, 30);
+    font-size: 3rem;
+    letter-spacing: -0.05em;
+}
+
+.ModalHeader {
+    border: none;
+
+    font-size: 4rem;    
+}
+
+.ModalHeaderUnderline {
+    border-color: rgba(0, 0, 0, 0.2);
+    
+    width: 100%;
+
+}
+
+.ModalBody {
+    font-size: 2.5rem;
+}
+
+.ModalButton {
+    background: rgb(0, 175, 250);
+
+    border: none;
+    border-radius: 5px;
+
+    min-width: 100px;
+
+    padding: 20px;
+    margin: 0 2px 0 2px;
+
+    color: white;
+    font-family: sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 2rem;
+}
+
+.ModalButton:hover {
+    scale: 1.05;
+}
+
+.ModalButton:active {
+    scale: 0.95;
+}

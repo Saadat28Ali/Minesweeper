@@ -1,0 +1,10 @@
+.App {
+  background-color: rgb(30, 30, 30);
+
+  flex-direction: column;
+
+  min-height: 100vh;
+  min-width: 100vw;
+
+  color: white;
+}
