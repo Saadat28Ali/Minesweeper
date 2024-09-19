@@ -31,7 +31,7 @@ export default function Modal(
                 <section className="ButtonsSection">
                     {
                     Object.keys(buttons).map((buttonKey: string) => {
-                        return <button className="ModalButton" onClick={() => {buttons[buttonKey]()}}> {buttonKey} </button>
+                        return <button key={buttonKey} className="ModalButton" onClick={() => {buttons[buttonKey]()}}> {buttonKey} </button>
                     })
                     }
                 </section>

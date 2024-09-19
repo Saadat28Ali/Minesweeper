@@ -19,6 +19,9 @@ export default function Grid(
     {dimensions: {[key: string]: number}}
 ) 
 {
+    const [loss, setLoss] = react.useState<boolean>(false);
+    const [modifyingGrid, setModifyingGrid] = react.useState<boolean>(false);
+
     const currentModal: currentModalInter = react.useContext(currentModalContext);
     const gridRefresher: gridRefresherInter = react.useContext(gridRefresherContext);
     const bombsLeft: bombsLeftInter = react.useContext(bombsLeftContext);
@@ -26,6 +29,7 @@ export default function Grid(
     const [grid, setGrid] = react.useState<Array<Array<Slot>>>([]);
 
     function createNewGrid() {
+        setLoss(false);
         let gridProto: Array<Array<Slot>> = [];
         let bombCount: number = 0;
         for (let index = 0; index < dimensions.rows; index++) {
@@ -72,30 +76,30 @@ export default function Grid(
         return retThis;
     }
 
-    function revealZeroEdges() {
-        for (let rowIndex: number = 0; rowIndex < grid.length; rowIndex++) {
-            for (let columnIndex: number = 0; columnIndex < grid[rowIndex].length; columnIndex++) {
-                if (grid[rowIndex][columnIndex].value === "0") {
-                    [
-                        [rowIndex - 1, columnIndex - 1], 
-                        [rowIndex - 1, columnIndex], 
-                        [rowIndex - 1, columnIndex + 1], 
-                        [rowIndex, columnIndex - 1], 
-                        [rowIndex, columnIndex + 1], 
-                        [rowIndex + 1, columnIndex - 1], 
-                        [rowIndex + 1, columnIndex], 
-                        [rowIndex + 1, columnIndex + 1]
-                    ].forEach((tuple) => {
-                        try {
-                            modifySlot(tuple[0], tuple[1], "1");
-                        } catch(error: any) {
-                            if (error.name === TypeError) {}
-                        }
-                    });
-                }
-            }
-        }
-    }
+    // function revealZeroEdges() {
+    //     for (let rowIndex: number = 0; rowIndex < grid.length; rowIndex++) {
+    //         for (let columnIndex: number = 0; columnIndex < grid[rowIndex].length; columnIndex++) {
+    //             if (grid[rowIndex][columnIndex].value === "0") {
+    //                 [
+    //                     [rowIndex - 1, columnIndex - 1], 
+    //                     [rowIndex - 1, columnIndex], 
+    //                     [rowIndex - 1, columnIndex + 1], 
+    //                     [rowIndex, columnIndex - 1], 
+    //                     [rowIndex, columnIndex + 1], 
+    //                     [rowIndex + 1, columnIndex - 1], 
+    //                     [rowIndex + 1, columnIndex], 
+    //                     [rowIndex + 1, columnIndex + 1]
+    //                 ].forEach((tuple) => {
+    //                     try {
+    //                         modifySlot(tuple[0], tuple[1], "1");
+    //                     } catch(error: any) {
+    //                         if (error.name === TypeError) {}
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //     }
+    // }
 
     function revealAdjacentZeroes(row: number, column: number) {
         [
@@ -150,6 +154,7 @@ export default function Grid(
                                 if (newValue === "1") {
                                     if (newSlot.bomb) {
                                         revealAll();
+                                        setLoss(true);
                                     }
                                     else {
                                         let adjacentBombsCount = getAdjacentBombsCount(parseInt(rowIndex), parseInt(slotIndex));
@@ -174,6 +179,7 @@ export default function Grid(
             }
             return newGrid;
         });
+        
     }
 
     function checkIfGridSaturated() {
@@ -189,27 +195,37 @@ export default function Grid(
         event.preventDefault();
         if (event.button === 0) {
             console.log("left click");
+            setModifyingGrid(true);
             modifySlot(rowIndex, columnIndex, "1");
+            setModifyingGrid(false);
         }
         else if (event.button === 2) {
             console.log("right click");
+            setModifyingGrid(true);
             modifySlot(rowIndex, columnIndex, "2");
+            setModifyingGrid(false);
         }
     }
 
     react.useEffect(() => {
-        if (grid.length !== 0 && checkIfGridSaturated()) {
-            console.log(grid);
-            currentModal.setCurrentModal("saturation");
+        if (grid.length !== 0 && !modifyingGrid && checkIfGridSaturated()) {
+            console.log(`Losing condition: ${loss}`);
+            if (loss) {
+                currentModal.setCurrentModal("loss");
+            } else {
+                currentModal.setCurrentModal("victory");
+            }
+            // console.log(grid);
+            // currentModal.setCurrentModal("saturation");
         }
-        revealZeroEdges();
+        // if (grid.length !== 0) revealZeroEdges();
     }, [grid]);
 
     react.useEffect(() => {
         console.log("Refreshing grid");
         setGrid(() => []);
         createNewGrid();
-    }, [gridRefresher.gridRefresher]) 
+    }, [gridRefresher.gridRefresher])
 
     return (
         <div 
@@ -223,7 +239,7 @@ export default function Grid(
                                 {
                                     row.map((item: Slot, columnIndex: number) => {
                                         return (
-                                            <Slot mouseDownHandler={handleGridItemMouseDown} rowIndex={rowIndex} columnIndex={columnIndex} value={item.value} />
+                                            <Slot key={`${rowIndex}_${columnIndex}`} mouseDownHandler={handleGridItemMouseDown} rowIndex={rowIndex} columnIndex={columnIndex} value={item.value} />
                                         );
                                         
                                     })

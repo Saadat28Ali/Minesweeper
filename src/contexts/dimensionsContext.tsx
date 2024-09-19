@@ -14,7 +14,7 @@ const dimensionsContext = createContext<gridDimensionsInter>({get: {rows: 0, col
 function DimensionsProvider(
     { children }: 
     {
-        children: any
+        children: Array<any>
     }
 ) {
 

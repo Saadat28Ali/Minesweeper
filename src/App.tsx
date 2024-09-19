@@ -9,6 +9,7 @@ import currentModalContext, { currentModalInter } from "./contexts/currentModalC
 import gridRefresherContext, { gridRefresherInter } from "./contexts/gridRefresherContext";
 import currentPhaseContext, { currentPhaseInter } from "./contexts/currentPhaseContext";
 import GameStatus from "./components/GameStatus/GameStatus";
+import muteContext, { muteInter } from "./contexts/muteContext";
 
 function App() {
 
@@ -16,16 +17,29 @@ function App() {
   const currentModal: currentModalInter = react.useContext(currentModalContext);
   const gridRefresher: gridRefresherInter = react.useContext(gridRefresherContext);
   const currentPhase: currentPhaseInter = react.useContext(currentPhaseContext);
+  const mute: muteInter = react.useContext(muteContext);
 
   function saturationModalOkHandler() {
     currentModal.setCurrentModal("");
     gridRefresher.refreshGrid();
+    currentPhase.setPhase("game");
   }
 
-  document.addEventListener("click", () => {
-    const sound = new Audio("./assets/click_fx.mpga");
-    sound.play();
-  });
+  function clickSoundEventHandler() {
+    if (mute.value) {
+      const sound = new Audio("./assets/click_fx.mpga");
+      sound.play();
+    }
+  }
+
+  react.useEffect(() => {
+    if (mute.value) {
+      document.addEventListener("click", clickSoundEventHandler);
+      return () => {document.removeEventListener("click", clickSoundEventHandler);}
+    }
+    else return;
+  }, [mute.value])
+  
 
   return (
     <div 
@@ -49,7 +63,33 @@ function App() {
                   }
                 }}
                 />
-              : (<></>)
+              : (currentModal.currentModal === "victory") 
+              ? 
+                <Modal 
+                header="You Win!"
+                body="You successfully traversed the minefield!"
+                buttons={{
+                  "Replay": () => {saturationModalOkHandler()}, 
+                  "Quit to Menu": () => {
+                    currentModal.setCurrentModal("");
+                    currentPhase.setPhase("welcome");
+                  }
+                }}
+                />
+              : (currentModal.currentModal === "loss") 
+              ? 
+                <Modal 
+                header="You Lose!"
+                body="Oops, you stepped on a bomb!"
+                buttons={{
+                  "Replay": () => {saturationModalOkHandler()}, 
+                  "Quit to Menu": () => {
+                    currentModal.setCurrentModal("");
+                    currentPhase.setPhase("welcome");
+                  }
+                }}
+                />
+              : <></>
             }
             <GameStatus />
         </>
