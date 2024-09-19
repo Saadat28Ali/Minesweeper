@@ -1,4 +1,5 @@
 import react from "react";
+import { motion } from "framer-motion";
 
 import "./Grid.css";
 import Slot from "../Slot/Slot";
@@ -228,7 +229,19 @@ export default function Grid(
     }, [gridRefresher.gridRefresher])
 
     return (
-        <div 
+        <motion.div 
+        initial={{
+            scale: 0.9, 
+            opacity: 0
+
+        }}
+        animate={{
+            scale: 1, 
+            opacity: 1, 
+            transition: {
+                duration: 0.1
+            }
+        }}
         className="Grid">
             {
                 grid.map((row: Array<Slot>, rowIndex: number) => {
@@ -251,6 +264,6 @@ export default function Grid(
                     );
                 })
             }
-        </div>
+        </motion.div>
     );
 }

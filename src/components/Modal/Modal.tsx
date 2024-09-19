@@ -1,4 +1,8 @@
+import { motion } from "framer-motion";
+
 import "./Modal.css";
+
+import Button from "../Button/Button";
 
 export default function Modal(
     { header, body, buttons }:
@@ -9,7 +13,19 @@ export default function Modal(
     }
 ) {
     return (
-        <div 
+        <motion.div 
+        initial={{
+            scale: 0.9, 
+            opacity: 0
+        }}
+        animate={{
+            scale: 1, 
+            opacity: 1, 
+            transition: {
+                duration: 0.3
+            }
+        }}
+
         className="Modal">
             {
                 (header)
@@ -31,13 +47,14 @@ export default function Modal(
                 <section className="ButtonsSection">
                     {
                     Object.keys(buttons).map((buttonKey: string) => {
-                        return <button key={buttonKey} className="ModalButton" onClick={() => {buttons[buttonKey]()}}> {buttonKey} </button>
+                        // return <button key={buttonKey} className="ModalButton" onClick={() => {buttons[buttonKey]()}}> {buttonKey} </button>
+                        return <Button key={buttonKey} clickHandler={() => {buttons[buttonKey]()}} text={buttonKey}></Button>
                     })
                     }
                 </section>
                 : <></>
             }
             
-        </div>
+        </motion.div>
     );
 }

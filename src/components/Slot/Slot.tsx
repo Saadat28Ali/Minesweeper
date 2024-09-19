@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 import "./Slot.css";
 
 export default function Slot(
@@ -10,7 +12,17 @@ export default function Slot(
     }
 ) {
     return (
-        <div 
+        <motion.div 
+        initial={{
+            scale: 1
+        }}
+        whileHover={{
+            scale: 1.05, 
+            transition: {
+                duration: 0.1
+            }
+
+        }}
         className="Slot"
         onContextMenu={(event: any) => {event.preventDefault();}}
         onMouseDown={(event: any) => {mouseDownHandler(event, rowIndex, columnIndex)}}
@@ -19,6 +31,6 @@ export default function Slot(
         }}
         >
             {value}
-        </div>
+        </motion.div>
     );
 }

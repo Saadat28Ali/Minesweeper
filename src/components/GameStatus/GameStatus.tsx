@@ -5,6 +5,8 @@ import "./GameStatus.css";
 import bombsLeftContext, {bombsLeftInter} from "../../contexts/bombsLeftContext";
 import muteContext, { muteInter } from "../../contexts/muteContext";
 
+import Button from "../Button/Button";
+
 export default function GameStatus(
 ) {
 
@@ -27,12 +29,13 @@ export default function GameStatus(
             </div>
             <div 
             className={"MuteArea"}>
-                <button 
+                {/* <button 
                 className={"Button" + ((mute.value) ? " Muted " : " NonMuted ")}
                 onClick={() => {mute.invertMute()}}
                 >
                     Mute 
-                </button>
+                </button> */}
+                <Button clickHandler={() => {mute.invertMute()}} text={(!mute.value) ? "Unmute" : "Mute"} pressed={!mute.value}/>
             </div>
         </div>
     );
