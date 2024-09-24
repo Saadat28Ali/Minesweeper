@@ -10,7 +10,7 @@ import gridRefresherContext, { gridRefresherInter } from "./contexts/gridRefresh
 import currentPhaseContext, { currentPhaseInter } from "./contexts/currentPhaseContext";
 import GameStatus from "./components/GameStatus/GameStatus";
 import muteContext, { muteInter } from "./contexts/muteContext";
-import zoomContext, { zoomInter } from "./contexts/zoomContext";
+// import zoomContext, { zoomInter } from "./contexts/zoomContext";
 
 function App() {
 
@@ -19,7 +19,7 @@ function App() {
   const gridRefresher: gridRefresherInter = react.useContext(gridRefresherContext);
   const currentPhase: currentPhaseInter = react.useContext(currentPhaseContext);
   const mute: muteInter = react.useContext(muteContext);
-  const zoom: zoomInter = react.useContext(zoomContext);
+  // const zoom: zoomInter = react.useContext(zoomContext);
 
   function saturationModalOkHandler() {
     currentModal.setCurrentModal("");
