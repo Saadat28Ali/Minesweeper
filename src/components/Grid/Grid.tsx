@@ -17,7 +17,9 @@ interface Slot {
 
 export default function Grid(
     { dimensions }:
-    {dimensions: {[key: string]: number}}
+    {
+        dimensions: {[key: string]: number}
+    }
 ) 
 {
     const [loss, setLoss] = react.useState<boolean>(false);
