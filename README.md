@@ -12,3 +12,4 @@ A Minesweeper app created using React and TypeScript
 # Technologies Uses
 - React
 - TypeScript
+- Framer Motion
