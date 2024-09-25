@@ -29,7 +29,7 @@ function App() {
 
   function clickSoundEventHandler() {
     if (mute.value) {
-      const sound = new Audio("./assets/click_fx.mpga");
+      const sound = new Audio("./click_fx.mpga");
       sound.play();
     }
   }
