@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "alteHaas";
+    src: url("./AlteHaasGroteskRegular.ttf");
+    font-weight: 400;
+  }
+
 .GameStatus {
     background-color: white;
 
@@ -10,7 +16,7 @@
     bottom: 0;
 
     color: rgb(30, 30, 30);
-    font-family: sans-serif;
+    font-family: "alteHaas";
 
     z-index: 2;
 }
@@ -20,6 +26,7 @@
 
     font-size: 2rem;
     letter-spacing: -0.1rem;
+    font-family: "alteHaas";
 }
 
 .Value {
@@ -48,7 +55,6 @@
     margin: 0 2px 0 2px;
 
     color: rgb(30, 30, 30);
-    font-family: sans-serif;
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 0.5rem;
